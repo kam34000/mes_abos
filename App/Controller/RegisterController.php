@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\models\UserModel;
+
 class RegisterController extends AppController
 {
 
@@ -14,8 +16,12 @@ class RegisterController extends AppController
     public function post()
     {
         $title = 'Home';
-       var_dump($_POST);
-       
+
+        $userModel = new UserModel();
+        $userModel->create($_POST);
+
+        $this->index();
+
         // $this->render('register/index', \compact('title', 'name'));
     }
 }
