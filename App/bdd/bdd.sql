@@ -1,6 +1,7 @@
 -- CREATE DATABASE IF NOT EXISTS `db_name` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 CREATE DATABASE IF NOT EXISTS `mes_abos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
+
 #------------------------------------------------------------
 #        Script MySQL.
 #------------------------------------------------------------
@@ -56,8 +57,11 @@ CREATE TABLE CATEGORY(
 
 CREATE TABLE ROLE(
         role_id   Int  Auto_increment  NOT NULL ,
-        role_name Varchar (100) NOT NULL
+        role_name Varchar (100) NOT NULL ,
+        user_id   Int NOT NULL
 	,CONSTRAINT ROLE_PK PRIMARY KEY (role_id)
+
+	,CONSTRAINT ROLE_USER_FK FOREIGN KEY (user_id) REFERENCES USER(user_id)
 )ENGINE=InnoDB;
 
 
@@ -74,19 +78,5 @@ CREATE TABLE CONTAINS(
 	,CONSTRAINT CONTAINS_subscription_FK FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
 	,CONSTRAINT CONTAINS_CATEGORY0_FK FOREIGN KEY (category_id) REFERENCES CATEGORY(category_id)
 	,CONSTRAINT CONTAINS_CATEGORY1_FK FOREIGN KEY (category_id_CONTAINS) REFERENCES CATEGORY(category_id)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: own
-#------------------------------------------------------------
-
-CREATE TABLE own(
-        user_id Int NOT NULL ,
-        role_id Int NOT NULL
-	,CONSTRAINT own_PK PRIMARY KEY (user_id,role_id)
-
-	,CONSTRAINT own_USER_FK FOREIGN KEY (user_id) REFERENCES USER(user_id)
-	,CONSTRAINT own_ROLE0_FK FOREIGN KEY (role_id) REFERENCES ROLE(role_id)
 )ENGINE=InnoDB;
 
