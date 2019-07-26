@@ -12,17 +12,17 @@ class UserModel extends Model
         try {
             if (
                 ($req = $this->_db->prepare(
-                    'INSERT INTO `user`(`user_name`, `user_nickname`, `user_email`, `user_number`, `user_password`) VALUE (:name, :nickname, :email, :number, :password)'
+                    'INSERT INTO `user`(`user_name`, `user_firstname`, `user_email`, `user_number`, `user_password`) VALUE (:name, :firstname, :email, :number, :password)'
                 )) !== false
             ) {
                 if (
                     $req->bindValue('name', $datas['name'])
-                    && $req->bindValue('nickname', $datas['firstname'])
+                    && $req->bindValue('firstname', $datas['firstname'])
                     && $req->bindValue('email', $datas['email'])
                     && $req->bindValue('number', $datas['phone'])
                     && $req->bindValue('password', $datas['password'])
                 ) {
-                    if ($req->exectute()) { }
+                    if ($req->execute()) { }
                 }
             }
         } catch (PDOException $e) {
