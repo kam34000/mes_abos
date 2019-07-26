@@ -22,7 +22,7 @@ class UserModel extends Model
                     && $req->bindValue('number', $datas['phone'])
                     && $req->bindValue('password', $datas['password'])
                 ) {
-                    if ($req->exectute()) { }
+                    if ($req->execute()) { }
                 }
             }
         } catch (PDOException $e) {
