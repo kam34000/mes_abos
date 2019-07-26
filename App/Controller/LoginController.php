@@ -18,7 +18,7 @@ class LoginController extends AppController
 
         if (!empty($_POST)) {
 
-            $auth = new DBAuth(App::getInstance()->getDb());
+            $auth = new DBAuth();
             if ($auth->login($_POST['email'], $_POST['password'])) {
                 header('Location: index.php?p=home');
             } else {

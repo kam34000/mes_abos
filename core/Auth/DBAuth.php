@@ -1,15 +1,15 @@
 <?php
 
-namespace Core\Auth;
+namespace core\Auth;
 
-use Core\Database\Database;
+use core\Database\SPDO;
 
 class DBAuth
 {
     private $db;
-    public function __construct(Database $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = SPDO::getInstance(DB_HOST, DB_NAME, DB_LOGIN, DB_PWD)->getPDO();
     }
     public function getUserId()
     {
