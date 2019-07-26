@@ -4,7 +4,6 @@
 namespace App\models;
 
 use Core\Models\Model;
-use \SPDO;
 
 class UserModel extends Model
 {
