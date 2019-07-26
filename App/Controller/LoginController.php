@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use core\Auth\DBAuth;
+use Core\Auth\DBAuth;
 use \App;
 
 class LoginController extends AppController

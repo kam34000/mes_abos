@@ -1,15 +1,15 @@
 <?php
 
-namespace core\Auth;
+namespace Core\Auth;
 
-use core\Database\SPDO;
+use Core\Database\SPDO;
 
 class DBAuth
 {
-    private $db;
+    private $_db;
     public function __construct()
     {
-        $this->db = SPDO::getInstance(DB_HOST, DB_NAME, DB_LOGIN, DB_PWD)->getPDO();
+        $this->_db = SPDO::getInstance(DB_HOST, DB_NAME, DB_LOGIN, DB_PWD)->getPDO();
     }
     public function getUserId()
     {
@@ -23,13 +23,19 @@ class DBAuth
      * @param string $password
      * @return boolean
      */
-    public function login(string $username, string $password): bool
+    public function login(string $email, string $password): bool
     {
-        $user = $this->db->prepare('SELECT * FROM `users` WHERE `username` = ?', [$username], null, true);
-        if ($user) {
-            if ($user->password === $password) {
-                $_SESSION['auth'] = $user->id;
-                return true;
+        if (($req = $this->_db->prepare('SELECT * FROM `user` WHERE user_email=?')) !== false) {
+            if ($req->bindValue(1, $email)) {
+                if ($req->execute()) {
+                    $user =  $req->fetch(\PDO::FETCH_ASSOC);
+                    if ($user) {
+                        if (password_verify($password, $user['user_password'])) {
+                            $_SESSION['auth'] = $user['id'];
+                            return true;
+                        }
+                    }
+                }
             }
         }
         return false;
